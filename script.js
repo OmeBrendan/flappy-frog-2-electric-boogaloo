@@ -5,8 +5,8 @@ var score = 0;
 var highscore = 0;
 
 function preload() {
-  bg = loadImage('pictures/bg.jpg');
-  fr = loadImage('pictures/frog.png')
+  bg = loadImage('pictures/landscape.png');
+  fr = loadImage('pictures/tim.jpg')
   ps = loadImage('pictures/paddenstoel.png')
   jump = loadSound('audio/jump.mp3');
   oswald = loadFont('font/oswald.ttf');
