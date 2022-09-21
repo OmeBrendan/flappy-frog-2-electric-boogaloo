@@ -25,11 +25,11 @@ function keyPressed() {
     if (gameState == 0) {
       gameState = 1;
     }
-  } else if (keyCode == 32) {
-    if (gameState == 1) {
-      frog.vy = -5;
-      jump.play();
-    }
+  //} else if (keyCode == 32) {
+    //if (gameState == 1) {
+    //frog.vy = -5;
+    //jump.play();
+    //}
   }
   if (keyCode == 13) {
     if (gameState == 2) {
@@ -58,6 +58,7 @@ function draw() {
     background(bg);
     frog.draw();
     frog.move();
+    frog.think();
 
     if (frameCount % 60 == 0) {
       let randomHeight = random(height - 150);

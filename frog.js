@@ -7,6 +7,18 @@ class Frog {
     this.x = 150;
     this.gravity = 0.30;
     this.hearts = 3;
+
+    this.brain = new NeuralNetwork(4, 4, 1);
+  }
+
+  think() {
+
+    let inputs = [1.0, 0.5, 0.2, 0.3];
+    let output = this.brain.predict(inputs);
+    if (output > 0.5) {
+      frog.vy = -5;
+      jump.play();
+    }
   }
 
   draw() {
