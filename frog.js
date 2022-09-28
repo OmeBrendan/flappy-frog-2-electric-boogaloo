@@ -11,10 +11,20 @@ class Frog {
     this.brain = new NeuralNetwork(4, 4, 1);
   }
 
-  think() {
+  think(pillars) {
+    if(pillars.length < 1){
+      return;
+    }
+    
+    let inputs = [];
+    inputs[0] = this.y / h;
+    inputs[1] = pillars[0].y / h;
+    inputs[2] = pillars[0].y + pillars[0].h / h;
+    inputs[3] = pillars[0].x / w;
 
-    let inputs = [1.0, 0.5, 0.2, 0.3];
+    // inputs = [1.0, 0.5, 0.2, 0.3];
     let output = this.brain.predict(inputs);
+    // console.log(output)
     if (output > 0.5) {
       frog.vy = -5;
       jump.play();

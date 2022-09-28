@@ -18,6 +18,10 @@ function setup() {
   createCanvas(550, 400);
   frog = new Frog(-0.5, 150, 0.25);
   background(bg);
+
+  let randomHeight = random(height - 150);
+  pillars.push(new Pillar(550, 0, randomHeight));
+  pillars.push(new Pillar(550, randomHeight + 150, 1000));
 }
 
 function keyPressed() {
@@ -58,7 +62,7 @@ function draw() {
     background(bg);
     frog.draw();
     frog.move();
-    frog.think();
+    frog.think(pillars);
 
     if (frameCount % 60 == 0) {
       let randomHeight = random(height - 150);
