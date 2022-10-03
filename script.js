@@ -1,8 +1,11 @@
 let pillars = [];
-var frog;
-var gameState = 0;
+let activeFrogs = [];
+let allFrogs = [];
+var smartestFrog;
+var gameState = 1;
 var score = 0;
 var highscore = 0;
+var totalPopulation = 500;
 
 function preload() {
   bg = loadImage('pictures/landscape.png');
@@ -16,31 +19,14 @@ function preload() {
 
 function setup() {
   createCanvas(550, 400);
-  frog = new Frog(-0.5, 150, 0.25);
+  //frog = new Frog(-0.5, 150, 0.25);
+  newFrogs();
   background(bg);
 
-  let randomHeight = random(height - 150);
-  pillars.push(new Pillar(550, 0, randomHeight));
-  pillars.push(new Pillar(550, randomHeight + 150, 1000));
+  let randomHeight = random(height - 150);  
 }
 
-function keyPressed() {
-  if (keyCode == 13) {
-    if (gameState == 0) {
-      gameState = 1;
-    }
-  //} else if (keyCode == 32) {
-    //if (gameState == 1) {
-    //frog.vy = -5;
-    //jump.play();
-    //}
-  }
-  if (keyCode == 13) {
-    if (gameState == 2) {
-      reset();
-    }
-  }
-}
+
 
 function draw() {
   if (gameState == 0) {
@@ -59,19 +45,26 @@ function draw() {
     text("Press enter to play", 175, 310);
   } else if (gameState == 1) {
     clear();
-    background(bg);
-    frog.draw();
-    frog.move();
-    frog.think(pillars);
+    background(bg);    
 
     if (frameCount % 60 == 0) {
       let randomHeight = random(height - 150);
       pillars.push(new Pillar(550, 0, randomHeight));
       pillars.push(new Pillar(550, randomHeight + 150, 1000));
-    }
+    }  
+    
+    activeFrogs.forEach(frog => {
+      frog.draw();
+      frog.think(pillars);      
+    })
 
     pillars.forEach(p => p.drawPillar());
-    pillars.forEach(p => p.hit());
+    
+    pillars.forEach(p => {
+      activeFrogs.forEach(frog => {
+        p.hit(frog);
+      })
+    });
 
     if (pillars.length > 5 && frameCount % 60 == 20) {
       score++;
@@ -116,6 +109,12 @@ function reset() {
   score = 0;
   pillars = [];
   gameState = 1;
-  frog.y = 125;
-  frog.vy = 0;
+}
+
+function newFrogs() {
+  
+  for (let i = 0; i < totalPopulation; i++) {    
+    let frog = new Frog();
+    activeFrogs.push(frog);    
+  }
 }

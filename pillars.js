@@ -15,10 +15,12 @@ class Pillar {
     this.x -= 3;
   }
 
-  hit() {
+  hit(frog) {
     if (frog.x + frog.w - 20 > this.x && frog.x < this.x + this.w) {
       if (frog.y + frog.h > this.y && frog.y < this.y + this.h) {
-        gameState = 2;
+        let idx = activeFrogs.indexOf(frog);
+        activeFrogs.splice(idx, 1);
+        //console.log("hit")
       }
     }
   }
