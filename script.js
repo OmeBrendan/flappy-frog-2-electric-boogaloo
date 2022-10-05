@@ -27,7 +27,6 @@ function setup() {
 }
 
 
-
 function draw() {
   if (gameState == 0) {
     background(bg);
@@ -47,7 +46,7 @@ function draw() {
     clear();
     background(bg);    
 
-    if (frameCount % 60 == 0) {
+    if (frameCount % 100 == 0) {
       let randomHeight = random(height - 150);
       pillars.push(new Pillar(550, 0, randomHeight));
       pillars.push(new Pillar(550, randomHeight + 150, 1000));
@@ -66,14 +65,25 @@ function draw() {
       })
     });
 
+      // one left? Then this is the smartest bird
+  if(activeFrogs.length == 1){
+    smartestFrog = activeFrogs[0];
+  }
+
+  // If we're out of birds go to the next generation
+  if (activeFrogs.length == 0) {
+    reset();
+  }
+}
+
     if (pillars.length > 5 && frameCount % 60 == 20) {
       score++;
     }
 
+    else if (gameState == 2) {
+    gameOver();
     text(score, 30, 50);
     textSize(30);
-  } else if (gameState == 2) {
-    gameOver();
   }
 }
 
@@ -105,16 +115,23 @@ function gameOver() {
 }
 
 function reset() {
-  clear();
   score = 0;
   pillars = [];
   gameState = 1;
+  newFrogs();
 }
 
 function newFrogs() {
   
   for (let i = 0; i < totalPopulation; i++) {    
-    let frog = new Frog();
-    activeFrogs.push(frog);    
-  }
-}
+    let frog
+    if(smartestFrog){
+      frog = new Frog(smartestFrog.brain);
+    }
+    else{
+      frog = new Frog();
+    }
+    activeFrogs[i] = frog;
+    allFrogs[i] = frog;
+  }  
+} 

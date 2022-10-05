@@ -7,6 +7,10 @@ class Pillar {
     this.c = "#2d6b4e";
   }
 
+  GetBottom() {
+    return this.y + this.h
+  }
+
   drawPillar() {
     fill(this.c);
     stroke("white");
