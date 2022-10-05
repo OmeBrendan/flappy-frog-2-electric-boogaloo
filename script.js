@@ -6,6 +6,7 @@ var gameState = 1;
 var score = 0;
 var highscore = 0;
 var totalPopulation = 500;
+var generation = 1;
 
 function preload() {
   bg = loadImage('pictures/landscape.png');
@@ -44,9 +45,10 @@ function draw() {
     text("Press enter to play", 175, 310);
   } else if (gameState == 1) {
     clear();
-    background(bg);    
+    background(bg);
 
-    if (frameCount % 100 == 0) {
+
+    if (frameCount % 80 == 0) {
       let randomHeight = random(height - 150);
       pillars.push(new Pillar(550, 0, randomHeight));
       pillars.push(new Pillar(550, randomHeight + 150, 1000));
@@ -75,6 +77,11 @@ function draw() {
     reset();
   }
 }
+
+  text('generation: ' + generation, 10, 20);
+  text('score: ' + score, 10, 30);
+  text('highscore: ' + highscore, 10, 40);
+  text('living tims: ' + activeFrogs.length, 10, 50);
 
     if (pillars.length > 5 && frameCount % 60 == 20) {
       score++;
@@ -119,6 +126,10 @@ function reset() {
   pillars = [];
   gameState = 1;
   newFrogs();
+  generation ++;
+  if (score > highscore) {
+    highscore = score
+  }
 }
 
 function newFrogs() {
