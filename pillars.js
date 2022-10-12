@@ -4,7 +4,7 @@ class Pillar {
     this.y = y;
     this.h = h;
     this.w = 50;
-    this.c = "#2d6b4e";
+    this.c = "#00FFFF";
   }
 
   GetBottom() {
@@ -13,7 +13,7 @@ class Pillar {
 
   drawPillar() {
     fill(this.c);
-    stroke("white");
+    stroke("#FF00FF");
     strokeWeight(2);
     rect(this.x, this.y, this.w, this.h);
     this.x -= 3;

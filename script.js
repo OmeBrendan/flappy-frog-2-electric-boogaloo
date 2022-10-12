@@ -122,7 +122,6 @@ function gameOver() {
 }
 
 function reset() {
-  score = 0;
   pillars = [];
   gameState = 1;
   newFrogs();
@@ -130,6 +129,7 @@ function reset() {
   if (score > highscore) {
     highscore = score
   }
+    score = 0;
 }
 
 function newFrogs() {
